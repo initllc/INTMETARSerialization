@@ -1,0 +1,473 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		273EFD80187B4706001C8A4D /* Documentation */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = 273EFD83187B4706001C8A4D /* Build configuration list for PBXAggregateTarget "Documentation" */;
+			buildPhases = (
+				273EFD84187B471F001C8A4D /* ShellScript */,
+			);
+			dependencies = (
+			);
+			name = Documentation;
+			productName = Documentation;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		273EFD73187B469F001C8A4D /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273EFD72187B469F001C8A4D /* Foundation.framework */; };
+		273EFD76187B469F001C8A4D /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EFD75187B469F001C8A4D /* main.m */; };
+		273EFD7A187B469F001C8A4D /* INTMETARSerialization.1 in CopyFiles */ = {isa = PBXBuildFile; fileRef = 273EFD79187B469F001C8A4D /* INTMETARSerialization.1 */; };
+		273EFD88187B474D001C8A4D /* INTMETARSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EFD87187B474D001C8A4D /* INTMETARSerialization.m */; };
+		273EFD8F187B4776001C8A4D /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 273EFD8E187B4776001C8A4D /* XCTest.framework */; };
+		273EFD95187B4776001C8A4D /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 273EFD93187B4776001C8A4D /* InfoPlist.strings */; };
+		273EFD97187B4776001C8A4D /* INTMETARSerialization_Tests.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EFD96187B4776001C8A4D /* INTMETARSerialization_Tests.m */; };
+		273EFD9E187B47B0001C8A4D /* INTMETARSerialization.m in Sources */ = {isa = PBXBuildFile; fileRef = 273EFD87187B474D001C8A4D /* INTMETARSerialization.m */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		273EFD99187B4776001C8A4D /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 273EFD67187B469F001C8A4D /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 273EFD6E187B469F001C8A4D;
+			remoteInfo = INTMETARSerialization;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		273EFD6D187B469F001C8A4D /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = /usr/share/man/man1/;
+			dstSubfolderSpec = 0;
+			files = (
+				273EFD7A187B469F001C8A4D /* INTMETARSerialization.1 in CopyFiles */,
+			);
+			runOnlyForDeploymentPostprocessing = 1;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		273EFD6F187B469F001C8A4D /* INTMETARSerialization */ = {isa = PBXFileReference; explicitFileType = "compiled.mach-o.executable"; includeInIndex = 0; path = INTMETARSerialization; sourceTree = BUILT_PRODUCTS_DIR; };
+		273EFD72187B469F001C8A4D /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		273EFD75187B469F001C8A4D /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
+		273EFD78187B469F001C8A4D /* INTMETARSerialization-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "INTMETARSerialization-Prefix.pch"; sourceTree = "<group>"; };
+		273EFD79187B469F001C8A4D /* INTMETARSerialization.1 */ = {isa = PBXFileReference; lastKnownFileType = text.man; path = INTMETARSerialization.1; sourceTree = "<group>"; };
+		273EFD86187B474D001C8A4D /* INTMETARSerialization.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = INTMETARSerialization.h; path = ../INTMETARSerialization/INTMETARSerialization.h; sourceTree = "<group>"; };
+		273EFD87187B474D001C8A4D /* INTMETARSerialization.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = INTMETARSerialization.m; path = ../INTMETARSerialization/INTMETARSerialization.m; sourceTree = "<group>"; };
+		273EFD8D187B4776001C8A4D /* INTMETARSerialization Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "INTMETARSerialization Tests.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		273EFD8E187B4776001C8A4D /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
+		273EFD92187B4776001C8A4D /* INTMETARSerialization Tests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "INTMETARSerialization Tests-Info.plist"; sourceTree = "<group>"; };
+		273EFD94187B4776001C8A4D /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
+		273EFD96187B4776001C8A4D /* INTMETARSerialization_Tests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = INTMETARSerialization_Tests.m; sourceTree = "<group>"; };
+		273EFD98187B4776001C8A4D /* INTMETARSerialization Tests-Prefix.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "INTMETARSerialization Tests-Prefix.pch"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		273EFD6C187B469F001C8A4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273EFD73187B469F001C8A4D /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		273EFD8A187B4776001C8A4D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273EFD8F187B4776001C8A4D /* XCTest.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		273EFD66187B469F001C8A4D = {
+			isa = PBXGroup;
+			children = (
+				273EFD86187B474D001C8A4D /* INTMETARSerialization.h */,
+				273EFD87187B474D001C8A4D /* INTMETARSerialization.m */,
+				273EFD74187B469F001C8A4D /* INTMETARSerialization */,
+				273EFD90187B4776001C8A4D /* INTMETARSerialization Tests */,
+				273EFD71187B469F001C8A4D /* Frameworks */,
+				273EFD70187B469F001C8A4D /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		273EFD70187B469F001C8A4D /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD6F187B469F001C8A4D /* INTMETARSerialization */,
+				273EFD8D187B4776001C8A4D /* INTMETARSerialization Tests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		273EFD71187B469F001C8A4D /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD72187B469F001C8A4D /* Foundation.framework */,
+				273EFD8E187B4776001C8A4D /* XCTest.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		273EFD74187B469F001C8A4D /* INTMETARSerialization */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD75187B469F001C8A4D /* main.m */,
+				273EFD79187B469F001C8A4D /* INTMETARSerialization.1 */,
+				273EFD77187B469F001C8A4D /* Supporting Files */,
+			);
+			path = INTMETARSerialization;
+			sourceTree = "<group>";
+		};
+		273EFD77187B469F001C8A4D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD78187B469F001C8A4D /* INTMETARSerialization-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		273EFD90187B4776001C8A4D /* INTMETARSerialization Tests */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD96187B4776001C8A4D /* INTMETARSerialization_Tests.m */,
+				273EFD91187B4776001C8A4D /* Supporting Files */,
+			);
+			path = "INTMETARSerialization Tests";
+			sourceTree = "<group>";
+		};
+		273EFD91187B4776001C8A4D /* Supporting Files */ = {
+			isa = PBXGroup;
+			children = (
+				273EFD92187B4776001C8A4D /* INTMETARSerialization Tests-Info.plist */,
+				273EFD93187B4776001C8A4D /* InfoPlist.strings */,
+				273EFD98187B4776001C8A4D /* INTMETARSerialization Tests-Prefix.pch */,
+			);
+			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		273EFD6E187B469F001C8A4D /* INTMETARSerialization */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 273EFD7D187B469F001C8A4D /* Build configuration list for PBXNativeTarget "INTMETARSerialization" */;
+			buildPhases = (
+				273EFD6B187B469F001C8A4D /* Sources */,
+				273EFD6C187B469F001C8A4D /* Frameworks */,
+				273EFD6D187B469F001C8A4D /* CopyFiles */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = INTMETARSerialization;
+			productName = INTMETARSerialization;
+			productReference = 273EFD6F187B469F001C8A4D /* INTMETARSerialization */;
+			productType = "com.apple.product-type.tool";
+		};
+		273EFD8C187B4776001C8A4D /* INTMETARSerialization Tests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 273EFD9B187B4776001C8A4D /* Build configuration list for PBXNativeTarget "INTMETARSerialization Tests" */;
+			buildPhases = (
+				273EFD89187B4776001C8A4D /* Sources */,
+				273EFD8A187B4776001C8A4D /* Frameworks */,
+				273EFD8B187B4776001C8A4D /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				273EFD9A187B4776001C8A4D /* PBXTargetDependency */,
+			);
+			name = "INTMETARSerialization Tests";
+			productName = "INTMETARSerialization Tests";
+			productReference = 273EFD8D187B4776001C8A4D /* INTMETARSerialization Tests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		273EFD67187B469F001C8A4D /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0500;
+				ORGANIZATIONNAME = init;
+				TargetAttributes = {
+					273EFD8C187B4776001C8A4D = {
+						TestTargetID = 273EFD6E187B469F001C8A4D;
+					};
+				};
+			};
+			buildConfigurationList = 273EFD6A187B469F001C8A4D /* Build configuration list for PBXProject "INTMETARSerialization" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 273EFD66187B469F001C8A4D;
+			productRefGroup = 273EFD70187B469F001C8A4D /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				273EFD6E187B469F001C8A4D /* INTMETARSerialization */,
+				273EFD80187B4706001C8A4D /* Documentation */,
+				273EFD8C187B4776001C8A4D /* INTMETARSerialization Tests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		273EFD8B187B4776001C8A4D /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273EFD95187B4776001C8A4D /* InfoPlist.strings in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		273EFD84187B471F001C8A4D /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "#appledoc Xcode script\n# Start constants\nprojectName=\"INTMETARSerialization\";\ncompany=\"Init LLC\";\ncompanyID=\"com.init\";\ncompanyURL=\"http://initsyndicate.com\";\n#target=\"iphoneos\";\ntarget=\"macosx\";\n# End constants\n/usr/local/bin/appledoc \\\n--finalize-docset \\\n--project-name \"${projectName}\" \\\n--project-company \"${company}\" \\\n--company-id \"${companyID}\" \\\n--docset-atom-filename \"${company}.atom\" \\\n--docset-feed-url \"${companyURL}/${company}/%DOCSETATOMFILENAME\" \\\n--docset-package-url \"${companyURL}/${company}/%DOCSETPACKAGEFILENAME\" \\\n--docset-fallback-url \"${companyURL}/${company}\" \\\n--docset-feed-name \"${projectName}\" \\\n--docset-bundle-id \"${companyID}.${projectName}\" \\\n--docset-bundle-name \"${projectName}\" \\\n--publish-docset \\\n--docset-platform-family \"${target}\" \\\n--logformat xcode \\\n--keep-intermediate-files \\\n--no-repeat-first-par \\\n--no-warn-missing-output-path \\\n--no-warn-missing-company-id \\\n--no-warn-undocumented-object \\\n--no-warn-undocumented-member \\\n--no-warn-empty-description \\\n--no-warn-unknown-directive \\\n--no-warn-invalid-crossref \\\n--no-warn-missing-arg \\\n--exit-threshold 3 \\\n\"${PROJECT_DIR}/../INTMETARSerialization/\"";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		273EFD6B187B469F001C8A4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273EFD88187B474D001C8A4D /* INTMETARSerialization.m in Sources */,
+				273EFD76187B469F001C8A4D /* main.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		273EFD89187B4776001C8A4D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				273EFD97187B4776001C8A4D /* INTMETARSerialization_Tests.m in Sources */,
+				273EFD9E187B47B0001C8A4D /* INTMETARSerialization.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		273EFD9A187B4776001C8A4D /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 273EFD6E187B469F001C8A4D /* INTMETARSerialization */;
+			targetProxy = 273EFD99187B4776001C8A4D /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		273EFD93187B4776001C8A4D /* InfoPlist.strings */ = {
+			isa = PBXVariantGroup;
+			children = (
+				273EFD94187B4776001C8A4D /* en */,
+			);
+			name = InfoPlist.strings;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		273EFD7B187B469F001C8A4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_SYMBOLS_PRIVATE_EXTERN = NO;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = macosx;
+			};
+			name = Debug;
+		};
+		273EFD7C187B469F001C8A4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = YES;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				GCC_C_LANGUAGE_STANDARD = gnu99;
+				GCC_ENABLE_OBJC_EXCEPTIONS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				MACOSX_DEPLOYMENT_TARGET = 10.9;
+				SDKROOT = macosx;
+			};
+			name = Release;
+		};
+		273EFD7E187B469F001C8A4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "INTMETARSerialization/INTMETARSerialization-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		273EFD7F187B469F001C8A4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "INTMETARSerialization/INTMETARSerialization-Prefix.pch";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		273EFD81187B4706001C8A4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Debug;
+		};
+		273EFD82187B4706001C8A4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				PRODUCT_NAME = "$(TARGET_NAME)";
+			};
+			name = Release;
+		};
+		273EFD9C187B4776001C8A4D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "INTMETARSerialization Tests/INTMETARSerialization Tests-Prefix.pch";
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				INFOPLIST_FILE = "INTMETARSerialization Tests/INTMETARSerialization Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Debug;
+		};
+		273EFD9D187B4776001C8A4D /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(DEVELOPER_FRAMEWORKS_DIR)",
+					"$(inherited)",
+				);
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = "INTMETARSerialization Tests/INTMETARSerialization Tests-Prefix.pch";
+				INFOPLIST_FILE = "INTMETARSerialization Tests/INTMETARSerialization Tests-Info.plist";
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				WRAPPER_EXTENSION = xctest;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		273EFD6A187B469F001C8A4D /* Build configuration list for PBXProject "INTMETARSerialization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				273EFD7B187B469F001C8A4D /* Debug */,
+				273EFD7C187B469F001C8A4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		273EFD7D187B469F001C8A4D /* Build configuration list for PBXNativeTarget "INTMETARSerialization" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				273EFD7E187B469F001C8A4D /* Debug */,
+				273EFD7F187B469F001C8A4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		273EFD83187B4706001C8A4D /* Build configuration list for PBXAggregateTarget "Documentation" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				273EFD81187B4706001C8A4D /* Debug */,
+				273EFD82187B4706001C8A4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+		273EFD9B187B4776001C8A4D /* Build configuration list for PBXNativeTarget "INTMETARSerialization Tests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				273EFD9C187B4776001C8A4D /* Debug */,
+				273EFD9D187B4776001C8A4D /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 273EFD67187B469F001C8A4D /* Project object */;
+}

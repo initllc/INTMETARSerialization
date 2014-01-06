@@ -52,8 +52,16 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 + (instancetype)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError *__autoreleasing *)error
 {
     INTMETARSerialization *metar = [[INTMETARSerialization alloc] initWithString:string options:options];
-    *error = [metar parse];
-    return *error ? nil : metar;
+    if (error != NULL) {
+        *error = [metar parse];
+        if (error != NULL) {
+            return metar;
+        }
+        return nil;
+    }else{
+        [metar parse];
+        return metar;
+    }
 }
 
 - (instancetype)initWithString:(NSString *)string options:(INTMETARParseOption)options

@@ -259,6 +259,16 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  */
 @property (readonly, nonatomic) NSArray *weatherPhenomena;
 
+
+
+/** Array of weather phenomena in a human readable format.
+ 
+ For example, if weatherPhenomena contains '-SN' then weatherPhenomenaHumanReadable
+ would contain 'light snow'.
+
+ */
+@property (readonly, nonatomic) NSArray *weatherPhenomenaHumanReadable;
+
 // TODO: Add preciptation began / end properties.
 
 
@@ -283,6 +293,15 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  */
 @property (readonly, nonatomic) NSArray *skyConditions;
+
+
+/** Array of sky conditions in human readable format.
+ 
+ For example, if skyConditions contains 'OVC020' then
+ skyConditionsHumanReadable would contain 'overcast at 2,000'.
+
+ */
+@property (readonly, nonatomic) NSArray *skyConditionsHumanReadable;
 
 
 #pragma mark - Temperature & Dewpoint

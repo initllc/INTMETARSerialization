@@ -42,9 +42,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 @property NSMutableArray *foundRunwayVisualRanges;
 
 - (NSError *)parse;
-+ (NSArray *)_weatherPhenomenaDescriptorQualifiers;
-+ (NSArray *)_weatherPhenomena;
-+ (NSArray *)_skyConditions;
++ (NSDictionary *)_weatherPhenomenaDescriptorQualifiers;
++ (NSDictionary *)_weatherPhenomena;
++ (NSDictionary *)_skyConditions;
 @end
 
 @implementation INTMETARSerialization
@@ -365,8 +365,8 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         ////////////////////////////////////////////////////////////////////////////////
 
         BOOL lookForMorePhenomena = YES;
-        NSArray *possibleDescriptors = [INTMETARSerialization _weatherPhenomenaDescriptorQualifiers];
-        NSArray *possiblePhenomena = [INTMETARSerialization _weatherPhenomena];
+        NSArray *possibleDescriptors = [INTMETARSerialization _weatherPhenomenaDescriptorQualifiers].allKeys;
+        NSArray *possiblePhenomena = [INTMETARSerialization _weatherPhenomena].allKeys;
         NSCharacterSet *intensityQualifiersSet = [NSCharacterSet characterSetWithCharactersInString:@"+-"];
         while (lookForMorePhenomena) {
             // Ignore the intensity for now
@@ -409,7 +409,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         ////////////////////////////////////////////////////////////////////////////////
 
         BOOL lookForMoreSkyConditions = YES;
-        NSArray *possibleSkyConditionPrefixes = [INTMETARSerialization _skyConditions];
+        NSArray *possibleSkyConditionPrefixes = [INTMETARSerialization _skyConditions].allKeys;
         while (lookForMoreSkyConditions) {
             BOOL isSkyCondition = NO;
             for (NSString *condition in possibleSkyConditionPrefixes) {
@@ -502,68 +502,68 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 }
 
 #pragma mark - Weather Phenomena
-+ (NSArray *)_weatherPhenomenaDescriptorQualifiers
++ (NSDictionary *)_weatherPhenomenaDescriptorQualifiers
 {
-    return @[
-             @"VC", // Vicinity is not an actual qualifier, but we need to check this somewhere. For now, it is acceptable to place it here.
-
-             @"MI", // SHALLOW
-             @"BC", // PATCHES
-             @"DR", // LOW DRIFTING
-             @"BL", // BLOWING
-             @"SH", // SHOWERS
-             @"TS", // THUNDERSTORM
-             @"FZ", // FREEZING
-             @"PR", // PARTIAL
-             ];
+    return @{
+             @"VC" : @"vicinity",       // Vicinity is not an actual qualifier, but we need to check this somewhere. For now, it is acceptable to place it here.
+             @"MI" : @"shallow",
+             @"BC" : @"patches",
+             @"DR" : @"low drifting",
+             @"BL" : @"blowing",
+             @"SH" : @"showers",
+             @"TS" : @"thunderstorm",
+             @"FZ" : @"freezing",
+             @"PR" : @"partial",
+             };
 }
 
 // Weather phenomena is a combination of precipitation, obscuration, and other.
-+ (NSArray *)_weatherPhenomena
++ (NSDictionary *)_weatherPhenomena
 {
-    return @[
+    return @{
              // Precipitation
-             @"DZ", // DRIZZLE
-             @"RA", // RAIN
-             @"SN", // SNOW
-             @"SG", // SNOW GRAINS
-             @"IC", // ICE CRYSTALS
-             @"PL", // ICE PELLETS
-             @"GR", // HAIL
-             @"GS", // SMALL HAIL OR SNOW PELLETS
-             @"UP", // UNKNOWN PRECIPITATION
+             @"DZ" : @"drizzle",
+             @"RA" : @"rain",
+             @"SN" : @"snow",
+             @"SG" : @"snow grains",
+             @"IC" : @"ice crystals",
+             @"PL" : @"ice pellets",
+             @"GR" : @"hail",
+             @"GS" : @"small hail / snow pellets",
+             @"UP" : @"unknown precipitation",
 
              // Obscuration
-             @"BR", // MIST
-             @"FG", // FOG
-             @"DU", // DUST
-             @"SA", // SAND
-             @"HZ", // HZ
-             @"PY", // SPRAY
-             @"VA", // VOLCANIC ASH
-             @"FU", // SMOKE
+             @"BR" : @"mist",
+             @"FG" : @"fog",
+             @"DU" : @"dust",
+             @"SA" : @"sand",
+             @"HZ" : @"haze",
+             @"PY" : @"spray",
+             @"VA" : @"volcanic ash",
+             @"FU" : @"smoke",
 
              // Other
-             @"PO", // DUST/SAND WHIRLS
-             @"SQ", // SQUALLS
-             @"FC", // FUNNEL CLOUD (+FC) INDICATES TORNADO OR WATERSPOUT
-             @"SS", // SANDSTORM
-             @"DS", // DUST STORM
-             ];
+             @"PO" : @"dust / sand whirls",
+             @"SQ" : @"squalls",
+             @"FC" : @"funnel cloud",
+             @"+FC": @"tornado or waterspout", // Special condition where we want the + here.
+             @"SS" : @"sandstorm",
+             @"DS" : @"dust storm",
+             };
 }
 
 #pragma mark - Sky Conditions
-+ (NSArray *)_skyConditions
++ (NSDictionary *)_skyConditions
 {
-    return @[
-             @"SKC", // CLEAR
-             @"CLR", // CLEAR
-             @"FEW", // FEW
-             @"SCT", // SCATTERED
-             @"BKN", // BROKEN
-             @"OVC", // OVERCAST
-             @"VV",  // VERTICAL VISIBILITY
-             ];
+    return @{
+             @"SKC" : @"clear",
+             @"CLR" : @"clear",
+             @"FEW" : @"few",
+             @"SCT" : @"scattered",
+             @"BKN" : @"broken",
+             @"OVC" : @"overcast",
+             @"VV"  : @"vertical visibility",
+             };
 }
 
 #pragma mark - Property Accessors
@@ -572,9 +572,116 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     return [NSArray arrayWithArray:self.foundWeatherPhenomena];
 }
 
+@synthesize weatherPhenomenaHumanReadable = _weatherPhenomenaHumanReadable;
+- (NSArray *)weatherPhenomenaHumanReadable
+{
+    if (_weatherPhenomenaHumanReadable) {
+        return _weatherPhenomenaHumanReadable;
+    }
+    NSDictionary *possibleWeatherPhenomena     = [INTMETARSerialization _weatherPhenomena];
+    NSDictionary *possibleDescriptorQualifiers = [INTMETARSerialization _weatherPhenomenaDescriptorQualifiers];
+    NSMutableArray *allPhenomena               = [NSMutableArray array];
+    for (NSString *phenomena in self.weatherPhenomena) {
+        // +FC is a special condition in which the + doesn't represent intensity. Instead, if we see +FC look it up directly from _weatherPhenomena instead of applying human readable logic.
+        if ([phenomena isEqualToString:@"+FC"]) {
+            NSString *fullPhenomena = [possibleWeatherPhenomena valueForKey:phenomena];
+            if (fullPhenomena) {
+                [allPhenomena addObject:fullPhenomena];
+            }
+            continue;
+        }
+
+        NSString *lookupKeys     = phenomena;
+        NSString *humanIntensity = nil;
+        if ([phenomena hasPrefix:@"-"]) {
+            humanIntensity = @"light";
+            lookupKeys = [phenomena substringFromIndex:1];
+        }else if ([phenomena hasPrefix:@"+"]){
+            humanIntensity = @"heavy";
+            lookupKeys = [phenomena substringFromIndex:1];
+        }
+
+        // The lookupKeys length should be an even value. Look at each 2 character string in the lookupKeys and try to find it in either the _weatherPhenomenaDescriptorQualifiers or _weatherPhenomena dictionary.
+        // It should be safe to assume that the descriptor will only ever be the first two characters, but we'll let the NSDictionary lookups determine whether or not something is a descriptor or a phenomena.
+        // We will only have one descriptor per phenomena, but we might have multiple types of precipitation or obstructions.
+        // Example, +SHRASN (heavy rain showers and snow.
+
+        NSString *individualDescriptor = nil;
+        NSMutableArray *individualPhenomenas = [NSMutableArray array];
+        if (lookupKeys.length % 2 == 0) {
+            for (int i = 0; i < lookupKeys.length; i = i+2) {
+                NSString *key = [lookupKeys substringWithRange:NSMakeRange(i, 2)];
+                NSString *humanPhenomena = [possibleWeatherPhenomena valueForKey:key];
+                if (humanPhenomena) {
+                    // Intensity applys to first precipitation (phenomena) and not the descriptor.
+                    if (humanIntensity && individualPhenomenas.count == 0) {
+                        humanPhenomena = [humanIntensity stringByAppendingFormat:@" %@", humanPhenomena];
+                    }
+                    // If there are no more keys to check, and we have multiple phenomena, prefix 'and' to the last phenomena.
+                    else if (i + 2 == lookupKeys.length && individualPhenomenas.count > 0) {
+                        humanPhenomena = [@"and " stringByAppendingString:humanPhenomena];
+                    }
+                    [individualPhenomenas addObject:humanPhenomena];
+                }else{
+                    individualDescriptor =  [possibleDescriptorQualifiers valueForKey:key];
+                }
+            }
+
+            NSString *fullHumanPhenomena = nil;
+            NSString *fullPhenomenas     = [individualPhenomenas componentsJoinedByString:@" "];
+            if (individualDescriptor) {
+                fullHumanPhenomena = [individualDescriptor stringByAppendingFormat:@" %@", fullPhenomenas];
+            }else{
+                fullHumanPhenomena = fullPhenomenas;
+            }
+            if (fullHumanPhenomena) {
+                [allPhenomena addObject:fullHumanPhenomena];
+            }
+        }
+    }
+    _weatherPhenomenaHumanReadable = [NSArray arrayWithArray:allPhenomena];
+    return _weatherPhenomenaHumanReadable;
+}
+
 - (NSArray *)skyConditions
 {
     return [NSArray arrayWithArray:self.foundSkyConditions];
+}
+
+@synthesize skyConditionsHumanReadable = _skyConditionsHumanReadable;
+- (NSArray *)skyConditionsHumanReadable
+{
+    if (_skyConditionsHumanReadable) {
+        return _skyConditionsHumanReadable;
+    }
+
+    NSDictionary *possibleSkyConditions = [INTMETARSerialization _skyConditions];
+    NSMutableArray *allConditions       = [NSMutableArray array];
+    NSNumberFormatter *numberFormatter  = [[NSNumberFormatter alloc] init];
+    numberFormatter.numberStyle         = NSNumberFormatterDecimalStyle;
+    for (NSString *condition in self.skyConditions){
+        // First two or three characters are the condition, next three characters are the flight level
+        if (condition.length == 5 || condition.length == 6) {
+            NSRange conditionRange;
+            NSRange levelRange;
+            if (condition.length == 5) {
+                conditionRange = NSMakeRange(0, 2);
+                levelRange     = NSMakeRange(2, 3);
+            }else if (condition.length == 6){
+                conditionRange = NSMakeRange(0, 3);
+                levelRange     = NSMakeRange(3, 3);
+            }
+            NSString *conditionKey         = [condition substringWithRange:conditionRange];
+            NSNumber *conditionLevelNumber = [NSNumber numberWithInt:[[condition substringWithRange:levelRange] intValue] * 100];
+            NSString *humanCondition       = [possibleSkyConditions valueForKey:conditionKey];
+            if (humanCondition) {
+                NSString *fullHumanCondition = [NSString stringWithFormat:@"%@ %@", humanCondition, [numberFormatter stringFromNumber:conditionLevelNumber]];
+                [allConditions addObject:fullHumanCondition];
+            }
+        }
+    }
+    _skyConditionsHumanReadable = [NSArray arrayWithArray:allConditions];
+    return _skyConditionsHumanReadable;
 }
 
 - (NSInteger)temperatureF
@@ -597,7 +704,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     NSString *lessThan      = self.visibilityLessThan ? @"less than" : @"";
     NSString *visibility    = self.visibility != NSNotFound ? [NSString stringWithFormat:@"%@%.2f", lessThan, self.visibility] : @"N/A";
     NSString *weather       = self.weatherPhenomena.count > 0 ? [self.weatherPhenomena componentsJoinedByString:@","] : @"N/A";
+    NSString *weatherHuman  = self.weatherPhenomenaHumanReadable.count > 0 ? [self.weatherPhenomenaHumanReadable componentsJoinedByString:@","] : @"N/A";
     NSString *sky           = self.skyConditions.count > 0 ? [self.skyConditions componentsJoinedByString:@","] : @"N/A";
+    NSString *skyHuman      = self.skyConditionsHumanReadable.count > 0 ? [self.skyConditionsHumanReadable componentsJoinedByString:@","] : @"N/A";
     NSString *temperature   = self.temperatureC != NSNotFound ? [NSString stringWithFormat:@"Celsius %li, Farenheit %li", (long)self.temperatureC, (long)self.temperatureF] : @"N/A";
     NSString *dewpoint      = self.dewpointC != NSNotFound ? [NSString stringWithFormat:@"Celsius %li, Farenheit %li", (long)self.dewpointC, (long)self.dewpointF] : @"N/A";
     NSString *altimeter     = self.altimeter != NSNotFound ? [NSString stringWithFormat:@"%.2f", self.altimeter] : @"N/A";
@@ -609,8 +718,8 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                              "Wind Speed: %@\n"
                              "Wind Gust: %@\n"
                              "Visibility: %@\n"
-                             "Weather: %@\n"
-                             "Sky: %@\n"
+                             "Weather: %@ (%@)\n"
+                             "Sky: %@ (%@)\n"
                              "Temperature: %@\n"
                              "Dewpoint: %@\n"
                              "Altimeter: %@\n",
@@ -621,7 +730,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                              windGust,
                              visibility,
                              weather,
+                             weatherHuman,
                              sky,
+                             skyHuman,
                              temperature,
                              dewpoint,
                              altimeter

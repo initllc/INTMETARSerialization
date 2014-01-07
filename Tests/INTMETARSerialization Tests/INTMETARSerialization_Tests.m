@@ -241,8 +241,9 @@
                    @"KGFK 040907Z AUTO 34020KT 6SM BLSN BKN035 M13/M17 A2976 RMK AO2 PK WND 34027/0858 UPE02 P0000 TSNO",
                    @"KGFK 040853Z AUTO 35025G32KT 2 1/2SM UP SCT029 BKN035 M13/M17 A2974 RMK AO2 PK WND 35032/0848 UPB53SNE43 PRESRR SLP088 P0000 60000 T11281167 52019 TSNO",
                    @"KGFK 040601Z AUTO 34027G35KT 1/2SM FZFG VV007 BKN011 OVC030 M14/M16 A2958 RMK AO2 PK WND 34035/0555 P0000 TSNO",
+                   @"KGFK 071453Z 000000KT 10SM CLR SCT200 M27/M29 A3009 RMK AO2 SLP222 T12671294 53020 $",
                    ];
-    NSArray *ex = @[@"broken 3,500", @"scattered 2,900,broken 3,500", @"vertical visibility 700,broken 1,100,overcast 3,000"];
+    NSArray *ex = @[@"broken 3,500", @"scattered 2,900,broken 3,500", @"vertical visibility 700,broken 1,100,overcast 3,000", @"clear,scattered 20,000"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
         INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];

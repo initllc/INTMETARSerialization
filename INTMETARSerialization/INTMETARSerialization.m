@@ -659,7 +659,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     NSNumberFormatter *numberFormatter  = [[NSNumberFormatter alloc] init];
     numberFormatter.numberStyle         = NSNumberFormatterDecimalStyle;
     for (NSString *condition in self.skyConditions){
-        // First two or three characters are the condition, next three characters are the flight level
+        // First two or three characters are the condition, next three characters are the flight level.
         if (condition.length == 5 || condition.length == 6) {
             NSRange conditionRange = NSMakeRange(0, 0);
             NSRange levelRange = NSMakeRange(0, 0);
@@ -676,6 +676,13 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
             if (humanCondition) {
                 NSString *fullHumanCondition = [NSString stringWithFormat:@"%@ %@", humanCondition, [numberFormatter stringFromNumber:conditionLevelNumber]];
                 [allConditions addObject:fullHumanCondition];
+            }
+        }
+        // CLR and SKC are special conditions in which there will be no flight level information.
+        else if ([condition isEqualToString:@"CLR"] || [condition isEqualToString:@"SKC"]) {
+            NSString *humanCondition = [possibleSkyConditions valueForKey:condition];
+            if (humanCondition) {
+                [allConditions addObject:humanCondition];
             }
         }
     }

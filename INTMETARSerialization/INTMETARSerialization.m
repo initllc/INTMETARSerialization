@@ -469,10 +469,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         NSRegularExpression *altExp = [NSRegularExpression regularExpressionWithPattern:@"^A??\\d{4}$" options:0 error:&error];
         NSArray *altMatches = [altExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (altMatches.count) {
-            // Drop the A and insert a . between first two and last two characters.
-            NSString *altimeter = [comp stringByReplacingOccurrencesOfString:@"A" withString:@""];
-            altimeter = [NSString stringWithFormat:@"%@.%@", [altimeter substringWithRange:NSMakeRange(0, 2)], [altimeter substringWithRange:NSMakeRange(2, 2)]];
-            _altimeter = [altimeter floatValue];
+            // Drop the A and divide by 100 to determine inches in mercury value.
+            NSString *altimeter = [comp substringFromIndex:1];
+            _altimeter = [altimeter intValue] / 100.0;
             comp = e.nextObject;
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."

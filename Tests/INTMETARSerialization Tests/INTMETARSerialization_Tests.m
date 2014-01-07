@@ -356,7 +356,8 @@
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
         NSNumber *expected = [ex objectAtIndex:idx];
-        if (expected.floatValue != m.altimeter) {
+        NSNumber *actual = [NSNumber numberWithDouble:m.altimeter];
+        if (![expected isEqualToNumber:actual]) {
             XCTFail(@"Expecting altimeter %.2f, found altimeter %.2f in %@", expected.floatValue, m.altimeter, m.metarString);
         }
     }];
@@ -388,12 +389,16 @@
                           ];
     NSURL *baseURL = [NSURL URLWithString:@"http://weather.noaa.gov/pub/data/observations/metar/stations/"];
     NSUInteger validatedMETARS = 0;
+    NSMutableArray *errors = [NSMutableArray array];
     for (NSString *station in stations){
         NSURL *stationURL = [[baseURL URLByAppendingPathComponent:station] URLByAppendingPathExtension:@"TXT"];
         NSURLRequest *request = [NSURLRequest requestWithURL:stationURL];
         NSURLResponse *response = nil;
         NSError *error = nil;
         NSData *data = [NSURLConnection sendSynchronousRequest:request returningResponse:&response error:&error];
+        if (error) {
+            [errors addObject:error];
+        }
         if (data && !error) {
             // Expecting a 3 line string as a response. Last line is blank.
             /* Example:
@@ -408,6 +413,7 @@
                 NSError *e = nil;
                 [INTMETARSerialization METARObjectFromString:metarString options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
                 if (e) {
+                    [errors addObject:e];
                     XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
                 }else{
                     validatedMETARS++;
@@ -416,7 +422,7 @@
         }
     }
     if (validatedMETARS != stations.count) {
-        XCTFail(@"One or more live METARS did not validate. Validated %li out of %li", validatedMETARS, stations.count);
+        XCTFail(@"One or more live METARS did not validate. Validated %li out of %li. Errors: %@", validatedMETARS, stations.count, errors);
     }
 }
 

@@ -661,8 +661,8 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     for (NSString *condition in self.skyConditions){
         // First two or three characters are the condition, next three characters are the flight level
         if (condition.length == 5 || condition.length == 6) {
-            NSRange conditionRange;
-            NSRange levelRange;
+            NSRange conditionRange = NSMakeRange(0, 0);
+            NSRange levelRange = NSMakeRange(0, 0);
             if (condition.length == 5) {
                 conditionRange = NSMakeRange(0, 2);
                 levelRange     = NSMakeRange(2, 3);

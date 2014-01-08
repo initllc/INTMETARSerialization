@@ -13,7 +13,6 @@ There is no guarantee that this class will provide complete or accurate results.
 * Altimeter
 
 ####Limitations
-* Visibility P6SM not handled correctly.
 * Remarks are not handled at this time.
 
 ####Use
@@ -42,10 +41,7 @@ Altimeter: 30.21
 ```
 
 ####TODO
-* Handle visibility P6SM correctly.
 * Support for remarks such as tower visibility, surface visibility, precipitation began / ended times.
-* Provide human friendly weather phenomena. i.e. -SN would be 'light snow'
-* Provide human friendly sky conditions. i.e. VV010 would be 'vertical visibility 1,000'
 
 ####License
 ```

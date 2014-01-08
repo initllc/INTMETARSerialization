@@ -147,9 +147,9 @@
                    @"KGFK 032253Z 18010KT 10SM OVC055 M04/M06 A2920 RMK AO2 T10441061",
                    @"KGFK 032253Z 18010KT M1/4SM OVC055 M04/M06 A2920 RMK AO2 T10441061",
                    @"KGFK 032253Z 18010KT 1 1/2SM OVC055 M04/M06 A2920 RMK AO2 T10441061",
-                   //                   @"KGFK 032253Z 18010KT P6SM OVC055 M04/M06 A2920 RMK AO2 T10441061",
+                   @"KGFK 032253Z 18010KT P6SM OVC055 M04/M06 A2920 RMK AO2 T10441061",
                    ];
-    NSArray *ex = @[@3, @10.0, @0.25, @1.5];
+    NSArray *ex = @[@3, @10.0, @0.25, @1.5, @6.0];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
         INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];

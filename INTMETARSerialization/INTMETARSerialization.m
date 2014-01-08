@@ -336,6 +336,10 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                 float c = [[visComp substringFromIndex:divRange.location + 1] floatValue];
                 _visibility = a + ( b / c );
             }else{
+                // Special handling for P6SM
+                if ([visComp hasPrefix:@"P"]) {
+                    visComp = [visComp substringFromIndex:1];
+                }
                 _visibility = [visComp integerValue];
             }
             if (_visibility) {

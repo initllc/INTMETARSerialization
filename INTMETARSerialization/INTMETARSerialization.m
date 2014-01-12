@@ -264,32 +264,6 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 
 
 
-#pragma mark Runway Visual Range
-        ////////////////////////////////////////////////////////////////////////////////
-        // Runway Visual Range
-        // We might have multiple RVR to handle before we get to visibility.
-        // For now, we'll skip RVRs.
-        ////////////////////////////////////////////////////////////////////////////////
-
-        error = nil;
-        NSRegularExpression *rvrExp = [NSRegularExpression regularExpressionWithPattern:@"^R.*FT$" options:0 error:&error];
-        ;
-        BOOL lookForMoreRVR = YES;
-        while (lookForMoreRVR) {
-            NSArray *rvrMatches = [rvrExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
-            if (rvrMatches.count) {
-                for (NSTextCheckingResult *result in rvrMatches) {
-                    NSString *rvr = [comp substringWithRange:result.range];
-                    [self.foundRunwayVisualRanges addObject:rvr];
-                }
-                comp = e.nextObject;
-            }else{
-                lookForMoreRVR = NO;
-            }
-        }
-
-
-
 #pragma mark Visibility
         ////////////////////////////////////////////////////////////////////////////////
         // Visibility
@@ -359,6 +333,30 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
             }
         }
 
+
+        
+#pragma mark Runway Visual Range
+        ////////////////////////////////////////////////////////////////////////////////
+        // Runway Visual Range
+        // We might have multiple RVR to handle before we get to visibility.
+        ////////////////////////////////////////////////////////////////////////////////
+
+        error = nil;
+        NSRegularExpression *rvrExp = [NSRegularExpression regularExpressionWithPattern:@"^R.*FT$" options:0 error:&error];
+        ;
+        BOOL lookForMoreRVR = YES;
+        while (lookForMoreRVR) {
+            NSArray *rvrMatches = [rvrExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
+            if (rvrMatches.count) {
+                for (NSTextCheckingResult *result in rvrMatches) {
+                    NSString *rvr = [comp substringWithRange:result.range];
+                    [self.foundRunwayVisualRanges addObject:rvr];
+                }
+                comp = e.nextObject;
+            }else{
+                lookForMoreRVR = NO;
+            }
+        }
 
 
 

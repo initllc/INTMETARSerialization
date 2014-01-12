@@ -86,13 +86,20 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
 
 /** The day of the month from the METAR. Parsing will fail if the day cannot
- be found.*/
+ be found.
+ 
+ @note This value may be deprecated in favour of `date`.*/
 @property (readonly, nonatomic) u_int8_t day;
 
 
 /** The Zulu time of the report. Parsing will fail if the time cannot be found.
- */
+ 
+ @note This value may be deprecated in favour of `date`.*/
 @property (readonly, nonatomic) u_int16_t time;
+
+/** The date of the report. Parsing will fail if the time cannot be found.
+ */
+@property (readonly, nonatomic) NSDate *date;
 
 
 /** If 'AUTO' is found in the report this property will be YES.*/

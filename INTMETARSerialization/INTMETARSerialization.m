@@ -165,8 +165,18 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         NSRegularExpression *dateTimeExp = [NSRegularExpression regularExpressionWithPattern:@"^\\d{6}Z??$" options:0 error:&error];
         NSArray *matches = [dateTimeExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (matches.count) {
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
+            NSDateComponents *components = [gregorian components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:[NSDate date]];
+            components.day = [[comp substringWithRange:NSMakeRange(0, 2)] integerValue];
+            components.hour = [[comp substringWithRange:NSMakeRange(2, 2)] integerValue];
+            components.minute = [[comp substringWithRange:NSMakeRange(4, 2)] integerValue];
+            components.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
+            _date = [gregorian dateFromComponents:components];
+            
+            // Preferable deprecate this in favour of date property.
             _day = [[comp substringWithRange:NSMakeRange(0, 2)] intValue];
             _time = [[comp substringWithRange:NSMakeRange(2, 4)] intValue];
+            
             comp = e.nextObject;
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."
@@ -723,6 +733,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 
     NSString *description = [NSString stringWithFormat:@"\n"
                              "Airport: %@\n"
+                             "Date: %@ (%d %d)\n"
                              "Auto: %@\n"
                              "Wind Direction: %@\n"
                              "Wind Speed: %@\n"
@@ -734,6 +745,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                              "Dewpoint: %@\n"
                              "Altimeter: %@\n",
                              self.airport,
+                             _date, _day, _time,
                              autoString,
                              windDirection,
                              windSpeed,

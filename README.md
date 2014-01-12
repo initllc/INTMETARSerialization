@@ -27,13 +27,14 @@ The output from the example above is:
 
 ```
 Airport: KGFK
+Date: 2014-01-28 23:03:00 +0000 (28 2303)
 Auto: NO
 Wind Direction: 360
 Wind Speed: 31
 Wind Gust: 41
 Visibility: 0.50
-Weather: -SN,BLSN
-Sky: VV010
+Weather: -SN,BLSN (light snow,blowing snow)
+Sky: VV010 (vertical visibility 1,000)
 Temperature: Celsius -21, Farenheit -6
 Dewpoint: Celsius -23, Farenheit -9
 Altimeter: 30.21

@@ -27,7 +27,7 @@ The output from the example above is:
 
 ```
 Airport: KGFK
-Date: 2014-01-28 23:03:00 +0000 (28 2303)
+Date: 2013-12-28 23:03:00 +0000 (28 2303)
 Auto: NO
 Wind Direction: 360
 Wind Speed: 31

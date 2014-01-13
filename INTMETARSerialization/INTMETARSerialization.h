@@ -97,7 +97,9 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  @note This value may be deprecated in favour of `date`.*/
 @property (readonly, nonatomic) u_int16_t time;
 
-/** The date of the report. Parsing will fail if the time cannot be found.
+/** The date of the report. Parsing will fail if the date cannot be found.
+ 
+ @warning METARs do not contain month or year data. The NSDate will contain the current month / year. If you are using this class to parse historical data you will need to keep track of month / year values independent of this property.
  */
 @property (readonly, nonatomic) NSDate *date;
 

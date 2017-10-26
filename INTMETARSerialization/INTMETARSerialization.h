@@ -24,7 +24,14 @@ ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
 SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-#import <Foundation/Foundation.h>
+#import "TargetConditionals.h"
+#if TARGET_OS_IPHONE
+#import <UIKit/UIKit.h>
+#else
+#import <Cocoa/Cocoa.h>
+#endif
+
+NS_ASSUME_NONNULL_BEGIN
 
 /** Key in NSError info dictionary that contains the raw metar string that caused the error.*/
 extern NSString * const INTMETARErrorInfoMetarKey;
@@ -65,7 +72,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  @return INTMETARSerialization object if parsing was successful, nil if an error occured.
  */
-+ (instancetype)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError **)error;
++ (instancetype _Nullable)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError **_Nullable)error;
 
 
 #pragma mark - Identify
@@ -82,26 +89,26 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 /** The 4 letter airport identifier from the METAR. Parsing will fail if the
  airport identifier could not be found.
  */
-@property (readonly, nonatomic) NSString *airport;
+@property (readonly, nonatomic, nonnull) NSString *airport;
 
 
 /** The day of the month from the METAR. Parsing will fail if the day cannot
  be found.
  
  @note This value may be deprecated in favour of `date`.*/
-@property (readonly, nonatomic) u_int8_t day;
+@property (readonly, nonatomic) NSUInteger day;
 
 
 /** The Zulu time of the report. Parsing will fail if the time cannot be found.
  
  @note This value may be deprecated in favour of `date`.*/
-@property (readonly, nonatomic) u_int16_t time;
+@property (readonly, nonatomic) NSUInteger time;
 
 /** The date of the report. Parsing will fail if the date cannot be found.
  
  @warning METARs do not contain month or year data. The NSDate will contain the current month / year. If you are using this class to parse historical data you will need to keep track of month / year values independent of this property.
  */
-@property (readonly, nonatomic) NSDate *date;
+@property (readonly, nonatomic, nonnull) NSDate *date;
 
 
 /** If 'AUTO' is found in the report this property will be YES.*/
@@ -162,7 +169,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  Example: 040V120
 
  */
-@property (readonly, nonatomic) NSString *variableWindGroup;
+@property (readonly, nonatomic, nullable) NSString *variableWindGroup;
 
 
 // TODO: Add peakWindDirection, peakWindSpeed, peakWindTime properties.
@@ -200,7 +207,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  Example: R35L/4500V6000FT, R34L/4500V6000FT
 
  */
-@property (readonly, nonatomic) NSArray *runwayVisualRanges;
+@property (readonly, nonatomic, nullable) NSArray <NSString *> *runwayVisualRanges;
 
 // TODO: Add surfaceVisibility, towerVisibility properties.
 
@@ -266,7 +273,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  * DS - Dust Storm
 
  */
-@property (readonly, nonatomic) NSArray *weatherPhenomena;
+@property (readonly, nonatomic, nullable) NSArray <NSString *> *weatherPhenomena;
 
 
 
@@ -276,7 +283,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  would contain 'light snow'.
 
  */
-@property (readonly, nonatomic) NSArray *weatherPhenomenaHumanReadable;
+@property (readonly, nonatomic, nullable) NSArray <NSString *> *weatherPhenomenaHumanReadable;
 
 // TODO: Add preciptation began / end properties.
 
@@ -301,7 +308,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  * VV - Vertical Visibility
 
  */
-@property (readonly, nonatomic) NSArray *skyConditions;
+@property (readonly, nonatomic, nullable) NSArray <NSString *> *skyConditions;
 
 
 /** Array of sky conditions in human readable format.
@@ -310,7 +317,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  skyConditionsHumanReadable would contain 'overcast at 2,000'.
 
  */
-@property (readonly, nonatomic) NSArray *skyConditionsHumanReadable;
+@property (readonly, nonatomic, nullable) NSArray <NSString *> *skyConditionsHumanReadable;
 
 
 #pragma mark - Temperature & Dewpoint
@@ -369,7 +376,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
  */
 
 /** The full metar string that was parsed.*/
-@property (readonly, nonatomic) NSString *metarString;
+@property (readonly, nonatomic, nonnull) NSString *metarString;
 
 @end
 
@@ -382,7 +389,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  @return Parsed METAR string or nil if an error was encountered.
  */
-- (INTMETARSerialization *)METARObject;
+- (INTMETARSerialization *_Nullable)METARObject;
 
 
 /** Parse sender string using INTMETARSerialization.
@@ -392,6 +399,8 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  @return Parsed METAR string or nil if an error was encountered.
  */
-- (INTMETARSerialization *)METARObjectUsingOptions:(INTMETARParseOption)options error:(NSError **)error;
+- (INTMETARSerialization *_Nullable)METARObjectUsingOptions:(INTMETARParseOption)options error:(NSError **_Nullable)error;
 
 @end
+
+NS_ASSUME_NONNULL_END

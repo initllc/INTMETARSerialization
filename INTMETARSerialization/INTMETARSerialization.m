@@ -37,14 +37,14 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 @property BOOL strict;
 @property BOOL logWarnings;
 
-@property NSMutableArray *foundWeatherPhenomena;
-@property NSMutableArray *foundSkyConditions;
-@property NSMutableArray *foundRunwayVisualRanges;
+@property NSMutableArray <NSString *> *foundWeatherPhenomena;
+@property NSMutableArray <NSString *> *foundSkyConditions;
+@property NSMutableArray <NSString *> *foundRunwayVisualRanges;
 
 - (NSError *)parse;
-+ (NSDictionary *)_weatherPhenomenaDescriptorQualifiers;
-+ (NSDictionary *)_weatherPhenomena;
-+ (NSDictionary *)_skyConditions;
++ (NSDictionary <NSString *, NSString *> *)_weatherPhenomenaDescriptorQualifiers;
++ (NSDictionary <NSString *, NSString *> *)_weatherPhenomena;
++ (NSDictionary <NSString *, NSString *> *)_skyConditions;
 @end
 
 @implementation INTMETARSerialization
@@ -165,8 +165,8 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         NSRegularExpression *dateTimeExp = [NSRegularExpression regularExpressionWithPattern:@"^\\d{6}Z??$" options:0 error:&error];
         NSArray *matches = [dateTimeExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (matches.count) {
-            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSGregorianCalendar];
-            NSDateComponents *components = [gregorian components:NSYearCalendarUnit | NSMonthCalendarUnit fromDate:[NSDate date]];
+            NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
+            NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
             components.day = [[comp substringWithRange:NSMakeRange(0, 2)] integerValue];
             components.hour = [[comp substringWithRange:NSMakeRange(2, 2)] integerValue];
             components.minute = [[comp substringWithRange:NSMakeRange(4, 2)] integerValue];
@@ -731,7 +731,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 
     NSString *description = [NSString stringWithFormat:@"\n"
                              "Airport: %@\n"
-                             "Date: %@ (%d %d)\n"
+                             "Date: %@ (%lu %lu)\n"
                              "Auto: %@\n"
                              "Wind Direction: %@\n"
                              "Wind Speed: %@\n"
@@ -743,7 +743,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                              "Dewpoint: %@\n"
                              "Altimeter: %@\n",
                              self.airport,
-                             _date, _day, _time,
+                             _date, (unsigned long)_day, (unsigned long)_time,
                              autoString,
                              windDirection,
                              windSpeed,

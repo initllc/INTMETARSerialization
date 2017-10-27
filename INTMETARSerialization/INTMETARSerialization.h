@@ -72,7 +72,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  @return INTMETARSerialization object if parsing was successful, nil if an error occured.
  */
-+ (instancetype _Nullable)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError **_Nullable)error;
++ (instancetype _Nullable)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError *__autoreleasing*_Nullable)error;
 
 
 #pragma mark - Identify
@@ -399,7 +399,7 @@ typedef NS_ENUM(NSUInteger, INTMETARParseOption){
 
  @return Parsed METAR string or nil if an error was encountered.
  */
-- (INTMETARSerialization *_Nullable)METARObjectUsingOptions:(INTMETARParseOption)options error:(NSError **_Nullable)error;
+- (INTMETARSerialization *_Nullable)METARObjectUsingOptions:(INTMETARParseOption)options error:(NSError *__autoreleasing*_Nullable)error;
 
 @end
 

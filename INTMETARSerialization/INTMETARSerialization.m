@@ -580,6 +580,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 #pragma mark - Property Accessors
 - (NSArray *)weatherPhenomena
 {
+    if (self.foundWeatherPhenomena.count == 0) {
+        return nil;
+    }
     return [NSArray arrayWithArray:self.foundWeatherPhenomena];
 }
 
@@ -589,10 +592,16 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     if (_weatherPhenomenaHumanReadable) {
         return _weatherPhenomenaHumanReadable;
     }
+    
+    NSArray <NSString *> *weatherPhenomena = self.weatherPhenomena;
+    if (!weatherPhenomena) {
+        return nil;
+    }
+    
     NSDictionary *possibleWeatherPhenomena     = [INTMETARSerialization _weatherPhenomena];
     NSDictionary *possibleDescriptorQualifiers = [INTMETARSerialization _weatherPhenomenaDescriptorQualifiers];
     NSMutableArray *allPhenomena               = [NSMutableArray array];
-    for (NSString *phenomena in self.weatherPhenomena) {
+    for (NSString *phenomena in weatherPhenomena) {
         // +FC is a special condition in which the + doesn't represent intensity. Instead, if we see +FC look it up directly from _weatherPhenomena instead of applying human readable logic.
         if ([phenomena isEqualToString:@"+FC"]) {
             NSString *fullPhenomena = [possibleWeatherPhenomena valueForKey:phenomena];
@@ -656,6 +665,9 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 
 - (NSArray *)skyConditions
 {
+    if (self.foundSkyConditions.count == 0) {
+        return nil;
+    }
     return [NSArray arrayWithArray:self.foundSkyConditions];
 }
 
@@ -666,11 +678,16 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         return _skyConditionsHumanReadable;
     }
 
+    NSArray <NSString *> *skyConditions = self.skyConditions;
+    if (!skyConditions) {
+        return nil;
+    }
+    
     NSDictionary *possibleSkyConditions = [INTMETARSerialization _skyConditions];
     NSMutableArray *allConditions       = [NSMutableArray array];
     NSNumberFormatter *numberFormatter  = [[NSNumberFormatter alloc] init];
     numberFormatter.numberStyle         = NSNumberFormatterDecimalStyle;
-    for (NSString *condition in self.skyConditions){
+    for (NSString *condition in skyConditions){
         // First two or three characters are the condition, next three characters are the flight level.
         if (condition.length == 5 || condition.length == 6) {
             NSRange conditionRange = NSMakeRange(0, 0);

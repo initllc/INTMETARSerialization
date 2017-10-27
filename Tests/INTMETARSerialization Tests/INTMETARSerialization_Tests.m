@@ -388,7 +388,7 @@
                           @"KLAX",
                           @"KJFK",
                           ];
-    NSURL *baseURL = [NSURL URLWithString:@"http://weather.noaa.gov/pub/data/observations/metar/stations/"];
+    NSURL *baseURL = [NSURL URLWithString:@"http://tgftp.nws.noaa.gov/data/observations/metar/stations/"];
     NSUInteger validatedMETARS = 0;
     NSMutableArray *errors = [NSMutableArray array];
     for (NSString *station in stations){

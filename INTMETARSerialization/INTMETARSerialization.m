@@ -142,7 +142,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         // INTMETARParseOptionStrict option.
         ////////////////////////////////////////////////////////////////////////////////
 
-        NSRegularExpression *airportExp = [NSRegularExpression regularExpressionWithPattern:@"^[A-Z]{4}$" options:0 error:&error];
+        NSRegularExpression *airportExp = [NSRegularExpression regularExpressionWithPattern:@"^\\w{4}$" options:0 error:&error];
         NSArray *airportMatches = [airportExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (airportMatches.count) {
             _airport = [comp substringWithRange:((NSTextCheckingResult *)airportMatches.firstObject).range];

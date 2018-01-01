@@ -166,11 +166,11 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         NSArray *matches = [dateTimeExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (matches.count) {
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
-            NSDateComponents *components = [gregorian components:NSCalendarUnitYear | NSCalendarUnitMonth fromDate:[NSDate date]];
+            NSTimeZone *utcZone = [NSTimeZone timeZoneWithName:@"UTC"];
+            NSDateComponents *components = [gregorian componentsInTimeZone:utcZone fromDate:[NSDate date]];
             components.day = [[comp substringWithRange:NSMakeRange(0, 2)] integerValue];
             components.hour = [[comp substringWithRange:NSMakeRange(2, 2)] integerValue];
             components.minute = [[comp substringWithRange:NSMakeRange(4, 2)] integerValue];
-            components.timeZone = [NSTimeZone timeZoneWithName:@"UTC"];
             _date = [gregorian dateFromComponents:components];
             
             // Preferable deprecate this in favour of date property.

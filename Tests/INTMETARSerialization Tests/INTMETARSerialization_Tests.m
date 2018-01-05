@@ -34,7 +34,7 @@
                    ];
     for (NSString *s in a){
         NSError *e = nil;
-        [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -51,7 +51,7 @@
     NSArray *ex = @[@0, @180, @265];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -70,7 +70,7 @@
     NSArray *ex = @[@4];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -89,7 +89,7 @@
     NSArray *ex = @[@29];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -108,7 +108,7 @@
     NSArray *ex = @[@"040V120"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -129,7 +129,7 @@
     NSArray *ex = @[@"R35L/4500V6000FT", @"R35L/1200V2000FT,R34L/4500V6000FT"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization *m = [INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -152,7 +152,7 @@
     NSArray *ex = @[@3, @10.0, @0.25, @1.5, @6.0];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -173,7 +173,7 @@
     NSArray *ex = @[@"+BLSN", @"UP", @"-FZFG"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -203,7 +203,7 @@
                     ];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -224,7 +224,7 @@
     NSArray *ex = @[@"BKN035", @"SCT029,BKN035", @"BKN011,OVC030"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -246,7 +246,7 @@
     NSArray *ex = @[@"broken 3,500", @"scattered 2,900,broken 3,500", @"vertical visibility 700,broken 1,100,overcast 3,000", @"clear,scattered 20,000"];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -268,7 +268,7 @@
     NSArray *ex = @[@-13, @16, @25];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -289,7 +289,7 @@
     NSArray *ex = @[@-17, @-10, @20];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -310,7 +310,7 @@
     NSArray *ex = @[@9, @61, @77];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -331,7 +331,7 @@
     NSArray *ex = @[@1, @14, @68];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -352,7 +352,7 @@
     NSArray *ex = @[@29.76, @29.74, @29.58];
     [a enumerateObjectsUsingBlock:^(NSString *s, NSUInteger idx, BOOL *stop) {
         NSError *e = nil;
-        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        INTMETARSerialization * m =[INTMETARSerialization METARObjectFromString:s options:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -371,7 +371,7 @@
                    ];
     for (NSString *s in a){
         NSError *e = nil;
-        [s METARObjectUsingOptions:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+        [s METARObjectUsingOptions:INTMETARParseOptionStrict error:&e];
         if (e) {
             XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);
         }
@@ -412,7 +412,7 @@
             if (responseLines.count == 3) {
                 NSString *metarString = (NSString *)[responseLines objectAtIndex:1];
                 NSError *e = nil;
-                [INTMETARSerialization METARObjectFromString:metarString options:INTMETARParseOptionStrict|INTMETARParseOptionLogWarnings error:&e];
+                [INTMETARSerialization METARObjectFromString:metarString options:INTMETARParseOptionStrict error:&e];
                 if (e) {
                     [errors addObject:e];
                     XCTFail(@"%@ %s", e.description, __PRETTY_FUNCTION__);

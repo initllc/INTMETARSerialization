@@ -25,17 +25,18 @@
  */
 
 #import "INTMETARSerialization.h"
+#import <os/log.h>
 
 #define CELSIUS_TO_FARENHEIT(C) ((C * 9.0) / 5.0) + 32.0
 
 NSString * const INTMETARErrorInfoMetarKey = @"INTMETARErrorInfoMetarKey";
 
 static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializationError";
+static os_log_t metar_log;
 
 @interface INTMETARSerialization ()
 
 @property BOOL strict;
-@property BOOL logWarnings;
 
 @property NSMutableArray <NSString *> *foundWeatherPhenomena;
 @property NSMutableArray <NSString *> *foundSkyConditions;
@@ -48,6 +49,13 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
 @end
 
 @implementation INTMETARSerialization
+
+#pragma mark - Lifecycle
+
++ (void)initialize
+{
+    metar_log = os_log_create("com.init.INTMETARSerialization", "METAR");
+}
 
 + (instancetype)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError *__autoreleasing *)error
 {
@@ -81,7 +89,6 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     _dewpointC     = NSNotFound;
 
     self.strict      = (options & INTMETARParseOptionStrict) == INTMETARParseOptionStrict;
-    self.logWarnings = (options & INTMETARParseOptionLogWarnings) == INTMETARParseOptionLogWarnings;
 
     return self;
 }
@@ -95,6 +102,8 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
                            };
     return [NSError errorWithDomain:INTMetarSerializationErrorDomain code:1 userInfo:info];
 }
+
+#pragma mark - Private
 
 - (NSError *)parse
 {
@@ -181,9 +190,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                  reason:@"Did not find date and time."];
-            if (self.logWarnings) {
-                NSLog(@"%@", error.description);
-            }
+            os_log_error(metar_log, "%@", error.description);
             if (self.strict) {
                 return error;
             }
@@ -225,9 +232,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
             }else{
                 NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                      reason:@"Unexpected error attempting to parse wind gusts."];
-                if (self.logWarnings) {
-                    NSLog(@"%@", error.description);
-                }
+                os_log_error(metar_log, "%@", error.description);
                 if (self.strict) {
                     return error;
                 }
@@ -244,9 +249,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                  reason:@"Unexpected error attempting to parse wind."];
-            if (self.logWarnings) {
-                NSLog(@"%@", error.description);
-            }
+            os_log_error(metar_log, "%@", error.description);
             if (self.strict) {
                 return error;
             }
@@ -335,9 +338,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                  reason:@"Unexpected error attempting to parse visibility."];
-            if (self.logWarnings) {
-                NSLog(@"%@", error.description);
-            }
+            os_log_error(metar_log, "%@", error.description);
             if (self.strict) {
                 return error;
             }
@@ -459,9 +460,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
             }else{
                 NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                      reason:@"Unexpected error attempting to parse temperature / dewpoint."];
-                if (self.logWarnings) {
-                    NSLog(@"%@", error.description);
-                }
+                os_log_error(metar_log, "%@", error.description);
                 if (self.strict) {
                     return error;
                 }
@@ -488,9 +487,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
         }else{
             NSError *error = [self errorWithDescription:@"Invalid METAR string."
                                                  reason:@"Unexpected error attempting to parse altimeter."];
-            if (self.logWarnings) {
-                NSLog(@"%@", error.description);
-            }
+            os_log_error(metar_log, "%@", error.description);
             if (self.strict) {
                 return error;
             }
@@ -502,9 +499,7 @@ static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializati
     }
     @catch (NSException *exception) {
         // If something went horribly wrong (usually a NSString index out of bounds exception) return an error regardless of INTMETARParseOptionStrict option.
-        if (self.logWarnings) {
-            NSLog(@"Unexpected Parse Error: %@", exception);
-        }
+        os_log_error(metar_log, "Unexpected parsing error: %@", exception);
         return [self errorWithDescription:exception.name reason:exception.reason];
     }
 

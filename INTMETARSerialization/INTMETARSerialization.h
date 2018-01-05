@@ -38,10 +38,7 @@ extern NSString * const INTMETARErrorInfoMetarKey;
 
 typedef NS_ENUM(NSUInteger, INTMETARParseOption){
     /** Whether or not parsing should fail if wind, visibility, sky conditions, temp / dewpoint, or altimeter are missing.*/
-    INTMETARParseOptionStrict      = 1,
-
-    /** Outputs warnings to NSLog.*/
-    INTMETARParseOptionLogWarnings = 2,
+    INTMETARParseOptionStrict = 1,
 };
 
 

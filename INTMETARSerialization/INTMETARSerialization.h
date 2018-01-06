@@ -37,10 +37,22 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const INTMETARErrorInfoMetarKey;
 
 typedef NS_ENUM(NSUInteger, INTMETARParseOption){
-    /** Whether or not parsing should fail if wind, visibility, sky conditions, temp / dewpoint, or altimeter are missing.*/
+    /** Whether or not parsing should fail if wind, visibility, sky conditions, temp / dewpoint, date, or altimeter are missing.*/
     INTMETARParseOptionStrict = 1,
 };
 
+typedef NS_ENUM(NSUInteger, INTMETARParseError){
+    INTMETARParseErrorUnableToParse,
+    INTMETARParseErrorInvalidString,
+    INTMETARParseErrorAirportIdentifierNotFound,
+    INTMETARParseErrorDateNotFound,
+    INTMETARParseErrorWindNotFound,
+    INTMETARParseErrorWindGustNotFound,
+    INTMETARParseErrorVisibilityNotFound,
+    INTMETARParseErrorTempOrDewNotFound,
+    INTMETARParseErrorAltimeterNotFound,
+    INTMETARParseErrorUnexpectedError,
+};
 
 /** Use INTMETARSerialization to parse and convert a METAR string to foundation objects and values.
  

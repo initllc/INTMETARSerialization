@@ -31,8 +31,8 @@
 
 NSString * const INTMETARErrorInfoMetarKey = @"INTMETARErrorInfoMetarKey";
 
-static NSString * const INTMetarSerializationErrorDomain = @"INTMetarSerializationError";
-static os_log_t metar_log;
+static NSString * const INTMetarSerializationErrorDomain = @"com.init.INTMETARSerialization";
+static os_log_t parse_log;
 
 @interface INTMETARSerialization ()
 
@@ -54,7 +54,7 @@ static os_log_t metar_log;
 
 + (void)initialize
 {
-    metar_log = os_log_create("com.init.INTMETARSerialization", "METAR");
+    parse_log = os_log_create("com.init.INTMETARSerialization", "METAR");
 }
 
 + (instancetype)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError *__autoreleasing *)error
@@ -93,17 +93,14 @@ static os_log_t metar_log;
     return self;
 }
 
-- (NSError *)errorWithDescription:(NSString *)description reason:(NSString *)reason
-{
-    NSDictionary *info = @{
-                           NSLocalizedDescriptionKey: description,
-                           NSLocalizedFailureReasonErrorKey: reason,
-                           INTMETARErrorInfoMetarKey: self.metarString,
-                           };
-    return [NSError errorWithDomain:INTMetarSerializationErrorDomain code:1 userInfo:info];
+#pragma mark - Private
+
+- (NSError *)errorForParseError:(INTMETARParseError)error {
+    NSError *e = [NSError errorWithDomain:INTMetarSerializationErrorDomain code:error userInfo:@{INTMETARErrorInfoMetarKey: self.metarString}];
+    return e;
 }
 
-#pragma mark - Private
+#pragma mark - Parse
 
 - (NSError *)parse
 {
@@ -121,8 +118,8 @@ static os_log_t metar_log;
 
         NSArray *c = [self.metarString componentsSeparatedByString:@" "];
         if (c.count == 0 || self.metarString.length == 0) {
-            return [self errorWithDescription:@"Unable to parse METAR."
-                                       reason:@"METAR string does not contain any components."];
+            os_log_error(parse_log, "METAR string does not contain any components");
+            return [self errorForParseError:INTMETARParseErrorUnableToParse];
         }
 
         // The first component should be either 'METAR' or 'SPECI'.
@@ -137,8 +134,8 @@ static os_log_t metar_log;
             comp = e.nextObject;
         }else if([c.firstObject length] != 4){
             // We were expecting the first component to be METAR or a 4 character airport identifier.
-            return [self errorWithDescription:@"Invalid METAR string."
-                                       reason:@"Expected string to start with either METAR, SPECI, or an airport identifier, but it does not."];
+            os_log_error(parse_log, "Expected string to start with either METAR, SPECI, or an airport identifier, but it does not.");
+            return [self errorForParseError:INTMETARParseErrorInvalidString];
         }
 
         NSError *error = nil;
@@ -157,8 +154,8 @@ static os_log_t metar_log;
             _airport = [comp substringWithRange:((NSTextCheckingResult *)airportMatches.firstObject).range];
             comp = e.nextObject;
         }else{
-            return [self errorWithDescription:@"Invalid METAR string."
-                                       reason:@"Did not find airport identifier."];
+            os_log_error(parse_log, "Airport identifier not found.");
+            return [self errorForParseError:INTMETARParseErrorAirportIdentifierNotFound];
         }
 
 
@@ -188,12 +185,8 @@ static os_log_t metar_log;
             
             comp = e.nextObject;
         }else{
-            NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                 reason:@"Did not find date and time."];
-            os_log_error(metar_log, "%@", error.description);
-            if (self.strict) {
-                return error;
-            }
+            os_log_error(parse_log, "Date and time not found.");
+            return [self errorForParseError:INTMETARParseErrorDateNotFound];
         }
 
 
@@ -230,11 +223,9 @@ static os_log_t metar_log;
             if (comp.length >= 8) {
                 _gustSpeed = [[comp substringWithRange:NSMakeRange(6, 2)] integerValue];
             }else{
-                NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                     reason:@"Unexpected error attempting to parse wind gusts."];
-                os_log_error(metar_log, "%@", error.description);
+                os_log_info(parse_log, "Wind gust not found.");
                 if (self.strict) {
-                    return error;
+                    return [self errorForParseError:INTMETARParseErrorWindGustNotFound];
                 }
             }
         }
@@ -247,11 +238,9 @@ static os_log_t metar_log;
             _windSpeed = [[comp substringWithRange:NSMakeRange(3, 2)] integerValue];
             comp = e.nextObject;
         }else{
-            NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                 reason:@"Unexpected error attempting to parse wind."];
-            os_log_error(metar_log, "%@", error.description);
+            os_log_info(parse_log, "Wind not found");
             if (self.strict) {
-                return error;
+                return [self errorForParseError:INTMETARParseErrorWindNotFound];
             }
         }
 
@@ -336,11 +325,9 @@ static os_log_t metar_log;
                 }
             }
         }else{
-            NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                 reason:@"Unexpected error attempting to parse visibility."];
-            os_log_error(metar_log, "%@", error.description);
+            os_log_info(parse_log, "Visibility not found.");
             if (self.strict) {
-                return error;
+                return [self errorForParseError:INTMETARParseErrorVisibilityNotFound];
             }
         }
 
@@ -458,11 +445,9 @@ static os_log_t metar_log;
                 _temperatureC = [td.firstObject integerValue];
                 _dewpointC = [td.lastObject integerValue];
             }else{
-                NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                     reason:@"Unexpected error attempting to parse temperature / dewpoint."];
-                os_log_error(metar_log, "%@", error.description);
+                os_log_info(parse_log, "Temp or dewpoint not found.");
                 if (self.strict) {
-                    return error;
+                    return [self errorForParseError:INTMETARParseErrorTempOrDewNotFound];
                 }
             }
             comp = e.nextObject;
@@ -485,11 +470,9 @@ static os_log_t metar_log;
             _altimeter = [altimeter intValue] / 100.0;
             comp = e.nextObject;
         }else{
-            NSError *error = [self errorWithDescription:@"Invalid METAR string."
-                                                 reason:@"Unexpected error attempting to parse altimeter."];
-            os_log_error(metar_log, "%@", error.description);
+            os_log_info(parse_log, "Altimeter not found.");
             if (self.strict) {
-                return error;
+                return [self errorForParseError:INTMETARParseErrorAltimeterNotFound];
             }
         }
 
@@ -499,8 +482,8 @@ static os_log_t metar_log;
     }
     @catch (NSException *exception) {
         // If something went horribly wrong (usually a NSString index out of bounds exception) return an error regardless of INTMETARParseOptionStrict option.
-        os_log_error(metar_log, "Unexpected parsing error: %@", exception);
-        return [self errorWithDescription:exception.name reason:exception.reason];
+        os_log_error(parse_log, "Unexpected parsing error: %@", exception);
+        return [self errorForParseError:INTMETARParseErrorUnexpectedError];
     }
 
     // Everything is 'good'? If we get here we think that the METAR was parsed as expected.

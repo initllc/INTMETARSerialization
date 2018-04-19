@@ -60,16 +60,14 @@ static os_log_t parse_log;
 + (instancetype)METARObjectFromString:(NSString *)string options:(INTMETARParseOption)options error:(NSError *__autoreleasing *)error
 {
     INTMETARSerialization *metar = [[INTMETARSerialization alloc] initWithString:string options:options];
-    if (error != NULL) {
-        *error = [metar parse];
+    NSError *parseError = [metar parse];
+    if (parseError != nil) {
         if (error != NULL) {
-            return metar;
+            *error = parseError;
         }
         return nil;
-    }else{
-        [metar parse];
-        return metar;
     }
+    return metar;
 }
 
 - (instancetype)initWithString:(NSString *)string options:(INTMETARParseOption)options

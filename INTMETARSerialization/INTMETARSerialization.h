@@ -37,6 +37,7 @@ NS_ASSUME_NONNULL_BEGIN
 extern NSString * const INTMETARErrorInfoMetarKey;
 
 typedef NS_ENUM(NSUInteger, INTMETARParseOption){
+    INTMETARParseOptionNone = 0,
     /** Whether or not parsing should fail if wind, visibility, sky conditions, temp / dewpoint, date, or altimeter are missing.*/
     INTMETARParseOptionStrict = 1,
 };

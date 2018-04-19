@@ -379,6 +379,46 @@
 
 }
 
+- (void)testStrictParsingWithError
+{
+    // This METAR is missing visibility. With strict parsing we should receive
+    // a response value of nil and the error should be set.
+    NSString *metar = @"KAEL 181715Z AUTO 01007KT BKN002 OVC007 M02/M03 A2991 RMK AO2 PWINO";
+    NSError *e = nil;
+    INTMETARSerialization *noMetar = [metar METARObjectUsingOptions:INTMETARParseOptionStrict error:&e];
+    XCTAssertNil(noMetar);
+    XCTAssertNotNil(e);
+}
+
+- (void)testStrictParsingWithoutError
+{
+    // This METAR is missing visibility. With strict parsing we should receive
+    // a response value of nil.
+    NSString *metar = @"KAEL 181715Z AUTO 01007KT BKN002 OVC007 M02/M03 A2991 RMK AO2 PWINO";
+    INTMETARSerialization *noMetar = [metar METARObjectUsingOptions:INTMETARParseOptionStrict error:nil];
+    XCTAssertNil(noMetar);
+}
+
+- (void)testNonStrictParsing
+{
+    // This METAR is missing visibility. With no parsing options we should
+    // receive a metar object with available properties set.
+    NSString *metar = @"KAEL 181715Z AUTO 01007KT BKN002 OVC007 M02/M03 A2991 RMK AO2 PWINO";
+    INTMETARSerialization *object = [metar METARObjectUsingOptions:INTMETARParseOptionNone error:nil];
+    XCTAssertNotNil(object);
+    XCTAssertEqualObjects(object.airport, @"KAEL");
+    XCTAssertEqual(object.day, 18);
+    XCTAssertEqual(object.time, 1715);
+    XCTAssertEqual(object.visibility, NSNotFound);
+    XCTAssertEqual(object.windDirection, 10);
+    XCTAssertEqual(object.windSpeed, 7);
+    XCTAssertEqualObjects(object.skyConditions[0], @"BKN002");
+    XCTAssertEqualObjects(object.skyConditions[1], @"OVC007");
+    XCTAssertEqual(object.temperatureC, -2);
+    XCTAssertEqual(object.dewpointC, -3);
+    XCTAssertEqual(object.altimeter, 29.91);
+}
+
 - (void)testLiveMetars
 {
     // Not concerned about error handling. If we get good data we'll test it, if not we'll fail but who cares.

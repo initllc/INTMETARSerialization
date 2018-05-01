@@ -169,12 +169,31 @@ static os_log_t parse_log;
         NSRegularExpression *dateTimeExp = [NSRegularExpression regularExpressionWithPattern:@"^\\d{6}Z??$" options:0 error:&error];
         NSArray *matches = [dateTimeExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
         if (matches.count) {
+            // Use the month and year components from the local time zone in
+            // order to handle parsing on the last day of the month at a time
+            // that puts the UTC time into the next day / month / year.
+            // For example on April 30 at 2353:
+            // day = 30
+            // hour = 23
+            // minute = 53
+            // Would become May 30, 2353 because when ask for the components in
+            // the UTC time zone it's already the next day which changes the
+            // month to May, but because we're setting the .day component it
+            // becomes May 30. So we need to set all of the components in order
+            // to get the correct UTC NSDate object. We know the day, hour, and
+            // minute come directly from the METAR, but the month and year need
+            // to come from our local date.
+            NSDate *now = [NSDate date];
             NSCalendar *gregorian = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
             NSTimeZone *utcZone = [NSTimeZone timeZoneWithName:@"UTC"];
-            NSDateComponents *components = [gregorian componentsInTimeZone:utcZone fromDate:[NSDate date]];
+            NSTimeZone *localZone = [NSTimeZone localTimeZone];
+            NSDateComponents *localComponents = [gregorian componentsInTimeZone:localZone fromDate:now];
+            NSDateComponents *components = [gregorian componentsInTimeZone:utcZone fromDate:now];
             components.day = [[comp substringWithRange:NSMakeRange(0, 2)] integerValue];
             components.hour = [[comp substringWithRange:NSMakeRange(2, 2)] integerValue];
             components.minute = [[comp substringWithRange:NSMakeRange(4, 2)] integerValue];
+            components.month = localComponents.month;
+            components.year = localComponents.year;
             _date = [gregorian dateFromComponents:components];
             
             // Preferable deprecate this in favour of date property.

@@ -445,7 +445,12 @@ static os_log_t parse_log;
         error = nil;
         NSRegularExpression *tempDewExp = [NSRegularExpression regularExpressionWithPattern:@"^(-?M?\\d{1,2})??/(-?M?\\d{1,2})??$" options:0 error:&error];
         NSArray *tempDewMatches = [tempDewExp matchesInString:comp options:0 range:NSMakeRange(0, comp.length)];
-        if (tempDewMatches.count) {
+        if (tempDewMatches.count != 1) {
+            os_log_info(parse_log, "Temp or dewpoint not found.");
+            if (self.strict) {
+                return [self errorForParseError:INTMETARParseErrorTempOrDewNotFound];
+            }
+        } else {
             // Split TT/DD into temp and dewpoint. Probably OK to just apply componentsSeparatedByString on comp. Using the regex match range to be safe.
             comp = [comp stringByReplacingOccurrencesOfString:@"M" withString:@"-"];
             NSArray *td = [[comp substringWithRange:((NSTextCheckingResult *)tempDewMatches.firstObject).range] componentsSeparatedByString:@"/"];
